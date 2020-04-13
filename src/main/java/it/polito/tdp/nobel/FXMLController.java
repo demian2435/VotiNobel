@@ -16,49 +16,57 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 
 	Model model;
-	
-    @FXML
-    private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private TextField txtInput;
-    
-    @FXML
-    private TextArea txtResult;
+	@FXML
+	private URL location;
 
-    @FXML
-    private Button btnReset;
+	@FXML
+	private TextField txtInput;
 
-    @FXML
-    void doCalcolaCombinazione(ActionEvent event) {
-    		try {
-    			int numeroCrediti = Integer.parseInt(txtInput.getText());
-    			Set<Esame> voti = model.calcolaSottoinsiemeEsami(numeroCrediti);
-    			
-    		} catch (NumberFormatException e) {
-    			txtResult.setText("Inserire un numero di crediti > 0");
-    		}
-    }
+	@FXML
+	private TextArea txtResult;
 
-    @FXML
-    void doReset(ActionEvent event) {
-    		// reset the UI
-    		txtInput.clear();
-    		txtResult.clear();
-    }
+	@FXML
+	private Button btnReset;
 
-    @FXML
-    void initialize() {
-        assert txtInput != null : "fx:id=\"txtInput\" was not injected: check your FXML file 'VotiNobel.fxml'.";
-        assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'VotiNobel.fxml'.";
-        assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'VotiNobel.fxml'.";
-    }
+	@FXML
+	void doCalcolaCombinazione(ActionEvent event) {
+		txtResult.clear();
+		
+		try {
+			int numeroCrediti = Integer.parseInt(txtInput.getText());
+			List<Esame> esami = model.calcolaSottoinsiemeEsami(numeroCrediti);
+
+			for (Esame e : esami) {
+				txtResult.appendText(e.getNomeCorso() + "\n");
+			}
+
+		} catch (NumberFormatException e) {
+			txtResult.setText("Inserire un numero di crediti > 0");
+		} catch (NullPointerException e) {
+			txtResult.setText("Non esistono configurazioni con questo valore di crediti");
+		}
+	}
+
+	@FXML
+	void doReset(ActionEvent event) {
+		// reset the UI
+		txtInput.clear();
+		txtResult.clear();
+	}
+
+	@FXML
+	void initialize() {
+		assert txtInput != null : "fx:id=\"txtInput\" was not injected: check your FXML file 'VotiNobel.fxml'.";
+		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'VotiNobel.fxml'.";
+		assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'VotiNobel.fxml'.";
+	}
 
 	public void setModel(Model model) {
-		
+
 		this.model = model;
 	}
 }

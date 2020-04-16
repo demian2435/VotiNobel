@@ -7,11 +7,11 @@ import it.polito.tdp.nobel.db.EsameDAO;
 
 public class Model {
 	private EsameDAO dao = new EsameDAO();
+	RicercaMedia rm = new RicercaMedia();
 
 	public List<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
 		List<Esame> allEsami = dao.getTuttiEsami();
-		RicercaMedia rm = new RicercaMedia(allEsami, numeroCrediti);
-		List<Esame> esami = rm.ricercaMedia(allEsami);
+		List<Esame> esami = rm.ricercaMedia(allEsami, numeroCrediti);
 
 		return esami;
 	}

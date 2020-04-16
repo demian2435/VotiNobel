@@ -35,13 +35,13 @@ public class FXMLController {
 	@FXML
 	void doCalcolaCombinazione(ActionEvent event) {
 		txtResult.clear();
-		
+
 		try {
 			int numeroCrediti = Integer.parseInt(txtInput.getText());
 			List<Esame> esami = model.calcolaSottoinsiemeEsami(numeroCrediti);
 
 			for (Esame e : esami) {
-				txtResult.appendText(e.getNomeCorso() + "\n");
+				txtResult.appendText("c:" + e.getCrediti() + " v:" + e.getVoto() + " " + e.getNomeCorso() + "\n");
 			}
 
 		} catch (NumberFormatException e) {

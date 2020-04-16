@@ -5,12 +5,13 @@ import java.util.List;
 
 public class RicercaMedia {
 	private int crediti;
-	private float bestMedia = 0;
+	private float bestMedia;
 	private List<Esame> result;
 	private List<Esame> bestEsami;
 
 	public List<Esame> ricercaMedia(List<Esame> allEsami, int crediti) {
 		this.crediti = crediti;
+		this.bestMedia = 0;
 		result = new ArrayList<Esame>();
 		ricorsiva(allEsami, result);
 		return bestEsami;

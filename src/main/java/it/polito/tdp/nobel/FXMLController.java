@@ -39,15 +39,16 @@ public class FXMLController {
 		try {
 			int numeroCrediti = Integer.parseInt(txtInput.getText());
 			List<Esame> esami = model.calcolaSottoinsiemeEsami(numeroCrediti);
-
+			if (esami.size() == 0 || esami == null) {
+				txtResult.setText("Non esistono configurazioni con questo valore di crediti");
+				return;
+			}
 			for (Esame e : esami) {
-				txtResult.appendText("c:" + e.getCrediti() + " v:" + e.getVoto() + " " + e.getNomeCorso() + "\n");
+				txtResult.appendText(e + "\n");
 			}
 
 		} catch (NumberFormatException e) {
 			txtResult.setText("Inserire un numero di crediti > 0");
-		} catch (NullPointerException e) {
-			txtResult.setText("Non esistono configurazioni con questo valore di crediti");
 		}
 	}
 
